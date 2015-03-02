@@ -1,4 +1,4 @@
-FROM jcejohnson/ubuntu
+FROM tragus/ubuntu
 
 MAINTAINER James Johnson
 
