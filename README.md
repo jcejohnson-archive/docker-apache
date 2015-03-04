@@ -24,6 +24,11 @@ ifconfig enp2s0:2 4.5.6.7
 docker run -d -p 4.5.6.7:80:80 --name apacheBar tragus/apache
 ```
 
+## TODO
+Follow the pattern at https://github.com/cpuguy83/docker-nfs-server
+to use runsvdir. Have inotifywait recursively monitor /etc/apache2
+so that we can easily externalize and modify the apache configuration.
+
 ## Warning
 There is no logfile management in the container at this time.
 You may want to map /var/log/apache2 (or all of /var/log) to
