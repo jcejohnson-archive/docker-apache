@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -pv /usr/local/bin/apache2.{start,stop}.d
+
+:
