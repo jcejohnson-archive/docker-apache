@@ -2,4 +2,24 @@
 
 mkdir -pv /usr/local/bin/apache2.{start,stop}.d
 
+# Tweak apache's ports.conf so that we can bind to a particular interface
+
+cat > /etc/apache2/ports.conf <<!
+# If you just change the port or add more ports here, you will likely also
+# have to change the VirtualHost statement in
+# /etc/apache2/sites-enabled/000-default.conf
+
+Listen \${apache_ipaddress}:\${apache_http}
+
+<IfModule ssl_module>
+        Listen \${apache_ipaddress}:\${apache_https}
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen \${apache_ipaddress}:\${apache_https}
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+!
+
 :

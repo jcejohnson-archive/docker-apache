@@ -16,6 +16,15 @@
 #     or need to start multiple services in the one container
 trap "echo TRAPed signal" HUP INT QUIT KILL TERM
 
+# jcejohnson
+#
+# Provide control over apache's listening address:port
+# Derived containers can override this with the '-e' paramter to 'docker run'
+[ -z "$apache_ipaddress" ] && apache_ipaddress="0.0.0.0"
+[ -z "$apache_http"      ] && apache_http="80"
+[ -z "$apache_https"     ] && apache_https="443"
+export apache_ipaddress apache_http apache_https
+
 # Start anything that wants to start before we start apache
 for i in /usr/local/bin/apache2.start.d/*
 do
