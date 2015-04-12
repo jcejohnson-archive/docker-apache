@@ -40,10 +40,10 @@ to use this when using -p to bind to a virtual IP as described above.
 ```
 ifconfig enp2s3:2 8.9.10.11
 docker run -d --net=host \
-	   -e apache_http=8080 \
-	   -e apache_https=8443 \
-           -e apache_ipaddress=8.9.10.11 \
-           --name apache tragus/apache
+    -e apache_http=8080 \
+    -e apache_https=8443 \
+    -e apache_ipaddress=8.9.10.11 \
+    --name apache tragus/apache
 ```
 
 ## Persistent Data
