@@ -1,23 +1,5 @@
 #!/bin/bash
 
-# jcejohnson
-#
-# From https://docs.docker.com/reference/builder/
-# 'read' was misbehaving with /bin/sh and my base is ubuntu so I'm using /bin/bash
-#
-# I also had issues getting 'read' to behave by itself so I introduced the named pipe
-# as a control mechanism. In this version, anything you send will cause it to exit
-# but we may do more interesting things in the future.
-#
-
-# Note: I've written this using sh so it works in the busybox container too
-
-# USE the trap if you need to also do manual cleanup after the service is stopped,
-#     or need to start multiple services in the one container
-trap "echo TRAPed signal" HUP INT QUIT KILL TERM
-
-# jcejohnson
-#
 # Provide control over apache's listening address:port
 # Derived containers can override this with the '-e' paramter to 'docker run'
 [ -z "$apache_ipaddress" ] && apache_ipaddress="0.0.0.0"
@@ -25,28 +7,7 @@ trap "echo TRAPed signal" HUP INT QUIT KILL TERM
 [ -z "$apache_https"     ] && apache_https="443"
 export apache_ipaddress apache_http apache_https
 
-# Start anything that wants to start before we start apache
-for i in /usr/local/bin/apache2.start.d/*
-do
-  [ -x "$i" ] && $i "$@"
-done
-
 # start service in background here
 /usr/sbin/apachectl start
-
-echo "[hit enter key to exit] or run 'docker stop <container>'"
-read < /var/run/container-control
-
-# Stop anything that wants to stop before we stop apache
-for i in /usr/local/bin/apache2.stop.d/*
-do
-  [ -x "$i" ] && $i "$@"
-done
-
-# stop service and clean up here
-echo "stopping apache"
-/usr/sbin/apachectl stop
-
-echo "exited $0"
 
 :

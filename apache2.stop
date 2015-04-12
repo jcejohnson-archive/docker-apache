@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# stop service and clean up here
+echo "stopping apache"
+/usr/sbin/apachectl stop
+
+:

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mkdir -pv /usr/local/bin/apache2.{start,stop}.d
-
 # Tweak apache's ports.conf so that we can bind to a particular interface
 
 cat > /etc/apache2/ports.conf <<!

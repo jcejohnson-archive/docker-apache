@@ -2,7 +2,12 @@
 
 # Sample script for launching the apache2 container
 
-rm -f /var/run/apache-control
-mknod /var/run/apache-control p
+docker kill apache
 docker rm apache
-docker run -d -p 80:80 -v /var/run/apache-control:/var/run/container-control --name apache tragus/apache
+
+docker run -d -t -p 0.0.0.0:80:80 \
+    -e apache_http="80" \
+    -e apache_https="443" \
+    -e apache_ipaddress="0.0.0.0" \
+    -v /usr/local/var/www:/var/www \
+    --name apache tragus/apache

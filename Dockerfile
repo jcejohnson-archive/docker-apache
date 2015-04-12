@@ -13,6 +13,7 @@ ADD apache2.configure /usr/local/bin/apache2.configure
 RUN chmod +x /usr/local/bin/apache2.* && /usr/local/bin/apache2.configure
 
 # Install any other scripts
-ADD apache2.start /usr/local/bin/apache2.start
+ADD apache2.start /usr/local/lib/container-controller/start/
+ADD apache2.stop  /usr/local/lib/container-controller/stop/
 
-ENTRYPOINT ["/usr/local/bin/apache2.start"]
+ENTRYPOINT ["/usr/local/bin/container-controller.start"]
